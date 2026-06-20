@@ -1,6 +1,12 @@
-# Tele — Local Chat Application
+# Tele — Premium Messenger
+
+[![GitHub](https://img.shields.io/badge/GitHub-ahmadmedo1012%2Ftele-7B6BFF?style=flat&logo=github)](https://github.com/ahmadmedo1012/tele)
 
 A Telegram-like chat app built to run entirely locally. No external services required.
+
+## GitHub
+
+
 
 ## Stack
 
