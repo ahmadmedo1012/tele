@@ -58,7 +58,9 @@ export async function showNewChat() {
 
 /* ── Settings ── */
 export function showSettings() {
-  closeSearch?.();
+  // Close search results if open
+  const sr = document.getElementById('search-results');
+  if (sr) sr.classList.remove('show');
   if (state.currentChat) {
     send({ type: 'leave_chat', chat_id: state.currentChat.id });
     state.currentChat = null; state.messages = [];
