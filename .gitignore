@@ -1,0 +1,10 @@
+node_modules/
+dist/
+data/*.db
+data/*.db-*
+uploads/*
+!uploads/.gitkeep
+.env
+*.log
+.DS_Store
+.claude-flow/
