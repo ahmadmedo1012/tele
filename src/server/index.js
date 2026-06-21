@@ -42,7 +42,7 @@ app.post('/api/register', async (req, res) => {
     const id = uuid();
     db.prepare('INSERT INTO users (id, username, display_name, password_hash) VALUES (?,?,?,?)')
       .run(id, cleanUser, (display_name || cleanUser).trim().substring(0, 50), hash);
-    const user = db.prepare('SELECT id, username, display_name, bio, status, created_at, theme, lang FROM users WHERE id = ?').get(id);
+    const user = db.prepare('SELECT id, username, phone, display_name, bio, status, created_at, theme, lang FROM users WHERE id = ?').get(id);
     res.json({ user, token: generateToken(user) });
   } catch (e) {
     res.status(500).json({ error: 'Registration failed' });
@@ -56,7 +56,7 @@ app.post('/api/login', async (req, res) => {
     const { username, password } = req.body;
     if (!username || !password) return res.status(400).json({ error: 'All fields required' });
     const db = getDb();
-    const user = db.prepare('SELECT * FROM users WHERE username = ?').get(username.trim().toLowerCase());
+    const user = db.prepare('SELECT id, username, phone, display_name, avatar, bio, status, status_text, theme, lang, password_hash, created_at, updated_at FROM users WHERE username = ?').get(username.trim().toLowerCase());
     if (!user || !(await bcrypt.compare(password, user.password_hash)))
       return res.status(401).json({ error: 'Invalid username or password' });
     const { password_hash, ...safe } = user;

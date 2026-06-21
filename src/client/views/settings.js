@@ -112,6 +112,7 @@ export function showSettings() {
     </div>
     <div class="form-group"><label>Display Name</label><input type="text" id="set-name" class="form-input" value="${escHtml(u.display_name || '')}" maxlength="50"></div>
     <div class="form-group"><label>Bio</label><input type="text" id="set-bio" class="form-input" value="${escHtml(u.bio || '')}" placeholder="Tell about yourself" maxlength="300"></div>
+    <div class="form-group"><label>Phone</label><input type="tel" id="set-phone" class="form-input" value="${escHtml(u.phone || '')}" placeholder="رقم الهاتف" maxlength="20"></div>
     <div class="form-group"><label>Status</label><input type="text" id="set-status" class="form-input" value="${escHtml(u.status_text || '')}" placeholder="What's on your mind?" maxlength="100"></div>
     <div class="form-group"><label>Theme</label><div class="theme-grid">
       <button class="theme-opt ${(u.theme||'dark')==='dark'?'active':''}" data-theme="dark">🌙 Dark</button>
@@ -139,14 +140,16 @@ export function showSettings() {
   document.getElementById('save-settings').onclick = async () => {
     const dn = document.getElementById('set-name')?.value.trim();
     const bio = document.getElementById('set-bio')?.value.trim();
+    const ph = document.getElementById('set-phone')?.value.trim();
     const st = document.getElementById('set-status')?.value.trim();
     const theme = document.querySelector('.theme-opt[data-theme].active')?.dataset.theme || 'dark';
     const lang = document.querySelector('.theme-opt[data-lang].active')?.dataset.lang || 'ltr';
     try {
-      await api.updateProfile({ display_name: dn, bio, status_text: st, theme, lang });
-      Object.assign(state.user, { display_name: dn, bio, status_text: st, theme, lang });
+      await api.updateProfile({ display_name: dn, bio, phone: ph, status_text: st, theme, lang });
+      Object.assign(state.user, { display_name: dn, bio, phone: ph, status_text: st, theme, lang });
       send({ type: 'update_status', status: 'online', status_text: st || '' });
-      document.documentElement.classList.toggle('light-theme', theme === 'light');
+      document.documentElement.classList.toggle('dark-theme', theme === 'dark');
+      document.documentElement.classList.toggle('light-theme', theme !== 'dark');
       document.documentElement.dir = lang;
       if (loadChatsFn) loadChatsFn();
       window.closeModal();

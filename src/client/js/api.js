@@ -18,7 +18,7 @@ export const api = {
     return data;
   },
 
-  register: (u, p, dn) => api.req('POST', '/register', { username: u, password: p, display_name: dn }),
+  register: (u, p, dn, ph) => api.req('POST', '/register', { username: u, password: p, display_name: dn, phone: ph || '' }),
   login: (u, p) => api.req('POST', '/login', { username: u, password: p }),
   getUsers: () => api.req('GET', '/users'),
   getUser: (id) => api.req('GET', '/users/' + id),

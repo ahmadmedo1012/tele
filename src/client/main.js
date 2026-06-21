@@ -36,9 +36,19 @@ export function initApp() {
   const app = document.getElementById('app-screen');
   if (auth) auth.style.display = 'none';
   if (app) app.classList.add('active');
-  if (state.user?.lang === 'rtl') document.documentElement.dir = 'rtl';
-  if (state.user?.theme === 'light') document.documentElement.classList.add('light-theme');
+  // Default: RTL + Light theme
+  document.documentElement.dir = 'rtl';
+  document.documentElement.classList.add('light-theme');
+  if (state.user) {
+    if (state.user.theme === 'dark') document.documentElement.classList.replace('light-theme', 'dark-theme');
+    if (state.user.lang === 'ltr') document.documentElement.dir = 'ltr';
+  }
   show(document.getElementById('loading-screen'));
+  // Load lottie animation
+  const lottieEl = document.getElementById('loading-lottie');
+  if (lottieEl && typeof lottie !== 'undefined') {
+    import('./utils/lottie.js').then(m => m.playAnimation(lottieEl, m.loadingAnimation, true));
+  }
   connect();
   renderSidebar();
   renderMain();

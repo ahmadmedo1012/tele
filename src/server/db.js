@@ -24,6 +24,7 @@ function initSchema() {
     CREATE TABLE IF NOT EXISTS users (
       id TEXT PRIMARY KEY,
       username TEXT UNIQUE NOT NULL,
+      phone TEXT DEFAULT '',
       display_name TEXT NOT NULL DEFAULT '',
       password_hash TEXT NOT NULL,
       avatar TEXT,

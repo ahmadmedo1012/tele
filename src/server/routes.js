@@ -54,13 +54,13 @@ export function setupRoutes(app) {
   // Users
   app.get('/api/users', (req, res) => {
     const db = getDb();
-    const users = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text FROM users WHERE id != ? ORDER BY display_name ASC').all(req.user.id);
+    const users = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text, phone FROM users WHERE id != ? ORDER BY display_name ASC').all(req.user.id);
     res.json(users);
   });
 
   app.get('/api/users/:id', (req, res) => {
     const db = getDb();
-    const u = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text FROM users WHERE id = ?').get(req.params.id);
+    const u = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text, phone FROM users WHERE id = ?').get(req.params.id);
     if (!u) return res.status(404).json({ error: 'Not found' });
     res.json(u);
   });
@@ -69,12 +69,13 @@ export function setupRoutes(app) {
     upload.single('avatar')(req, res, (err) => {
       if (err) return res.status(400).json({ error: err.message });
       const db = getDb();
-      const { display_name, bio, status_text, status, theme, lang } = req.body;
+      const { display_name, bio, status_text, status, theme, lang, phone } = req.body;
       const avatar = req.file ? `/uploads/${req.file.filename}` : undefined;
       const updates = [];
       const vals = [];
       if (display_name !== undefined) { const v = sanitize(display_name).substring(0, 50); updates.push('display_name = ?'); vals.push(v || 'User'); }
       if (bio !== undefined) { updates.push('bio = ?'); vals.push(sanitize(bio).substring(0, 300)); }
+      if (phone !== undefined) { updates.push('phone = ?'); vals.push(sanitize(phone).substring(0, 20)); }
       if (avatar) { updates.push('avatar = ?'); vals.push(avatar); }
       if (status_text !== undefined) { updates.push('status_text = ?'); vals.push(sanitize(status_text).substring(0, 100)); }
       if (status !== undefined) { updates.push('status = ?'); vals.push(status); }
@@ -90,7 +91,7 @@ export function setupRoutes(app) {
 
   app.get('/api/profile', (req, res) => {
     const db = getDb();
-    const u = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text, theme, lang FROM users WHERE id = ?').get(req.user.id);
+    const u = db.prepare('SELECT id, username, display_name, avatar, bio, status, status_text, phone, theme, lang FROM users WHERE id = ?').get(req.user.id);
     res.json(u);
   });
 

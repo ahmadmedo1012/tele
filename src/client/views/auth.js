@@ -73,6 +73,10 @@ function renderAuthForm(tab) {
         <input type="text" id="reg-name" class="form-input" placeholder="Your name">
       </div>
       <div class="form-group">
+        <label>Phone</label>
+        <input type="tel" id="reg-phone" class="form-input" autocomplete="tel" placeholder="رقم الهاتف (اختياري)">
+      </div>
+      <div class="form-group">
         <label>Password</label>
         <input type="password" id="reg-pass" class="form-input" autocomplete="new-password" placeholder="Min 4 characters">
       </div>
@@ -112,6 +116,7 @@ async function doLogin() {
 async function doRegister() {
   const u = qs('#reg-user')?.value.trim();
   const dn = qs('#reg-name')?.value.trim();
+  const ph = qs('#reg-phone')?.value.trim();
   const p = qs('#reg-pass')?.value;
   if (!u || u.length < 3) { showAuthError('Username must be at least 3 characters'); return; }
   if (!p || p.length < 4) { showAuthError('Password must be at least 4 characters'); return; }
@@ -119,7 +124,7 @@ async function doRegister() {
   if (!btn) return;
   btn.disabled = true; btn.textContent = 'Creating account…';
   try {
-    const res = await api.register(u, p, dn || u);
+    const res = await api.register(u, p, dn || u, ph);
     afterAuth(res);
   } catch (e) { showAuthError(e.message); btn.disabled = false; btn.textContent = 'Create Account'; }
 }

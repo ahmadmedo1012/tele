@@ -1,13 +1,13 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr" data-theme="dark">
+<html lang="ar" dir="rtl" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Tele — Messenger</title>
-  <meta name="theme-color" content="#07070D">
-  <meta name="description" content="Experience next-level messaging with Tele">
+  <meta name="theme-color" content="#F0FDFA">
+  <meta name="description" content="Tele — تطبيق مراسلة عصري">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
   <link rel="stylesheet" href="/src/client/styles/main.css">
 </head>
 <body>
@@ -18,13 +18,12 @@
         <div class="auth-logo">
           <div class="logo-icon">
             <svg width="42" height="42" viewBox="0 0 42 42" fill="none">
-              <rect width="42" height="42" rx="14" fill="url(#logoG)"/>
+              <rect width="42" height="42" rx="14" fill="#0D9488"/>
               <path d="M13 21l7 7 11-13" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-              <defs><linearGradient id="logoG" x1="0" y1="0" x2="42" y2="42"><stop stop-color="#7B6BFF"/><stop offset="1" stop-color="#F0A870"/></linearGradient></defs>
             </svg>
           </div>
           <h1>Tele</h1>
-          <p class="auth-subtitle">Messaging, elevated</p>
+          <p class="auth-subtitle">مراسلة سريعة وآمنة</p>
         </div>
       </div>
     </div>
@@ -33,14 +32,13 @@
     <div class="sidebar" id="sidebar"></div>
     <div class="main-area" id="main">
       <div class="loading-screen" id="loading-screen" style="display:none">
-        <div class="loader-ring">
-          <svg viewBox="0 0 50 50"><circle cx="25" cy="25" r="20" fill="none" stroke="url(#logoGradient)" stroke-width="4" stroke-linecap="round" stroke-dasharray="125" stroke-dashoffset="125"><animate attributeName="stroke-dashoffset" values="125;0" dur="1.5s" repeatCount="indefinite"/></svg>
-        </div>
-        <p>Connecting</p>
+        <div class="lottie-wrapper" id="loading-lottie"></div>
+        <p>جاري التحميل…</p>
       </div>
     </div>
   </div>
-  <svg style="display:none" aria-hidden="true"><defs><linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#7B6BFF"/><stop offset="1" stop-color="#F0A870"/></linearGradient></defs></svg>
+  <svg style="display:none" aria-hidden="true"><defs><linearGradient id="logoGradient" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#0D9488"/><stop offset="1" stop-color="#14B8A6"/></linearGradient></defs></svg>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lottie-web/5.12.2/lottie.min.js"></script>
   <script type="module" src="/src/client/main.js"></script>
 </body>
 </html>
